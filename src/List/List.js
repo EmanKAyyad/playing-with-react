@@ -3,7 +3,8 @@ import Card from '../card/card';
 
 class List extends Component {
     state = {
-        name: "eman"
+        name: "eman",
+        editingMode: false
     }
 
     changeName = (name) => {
@@ -12,10 +13,19 @@ class List extends Component {
         })
     }
 
+    toggleEdit = () => {
+        const editMode =  !this.state.editingMode;
+        this.setState({
+            editingMode: editMode
+        });
+    }
+
     render () {
         return (
             <div className="list">
+                <button onClick={this.toggleEdit}>{ this.state.editingMode ? 'Save' : 'Edit'}</button>
                 <Card 
+                    editMode={this.state.editingMode}
                     changed={this.changeName}
                     name={this.state.name}/>
             </div>
