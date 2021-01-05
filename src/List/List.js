@@ -3,31 +3,59 @@ import Card from '../card/card';
 
 class List extends Component {
     state = {
-        name: "eman",
-        editingMode: false
+        people: [
+            {
+                name: "ayman",
+                editingMode: false
+            },
+            {
+                name: "eman",
+                editingMode: false
+            },
+            {
+                name: "laila",
+                editingMode: false
+            },
+            {
+                name: "Aly",
+                editingMode: false
+            }
+        ]
     }
 
-    changeName = (name) => {
+    changeName = (index, name) => {
+        const peopleArr = [...this.state.people];
+        peopleArr[index].name = name;
+
         this.setState({
-            name: name
+            people: peopleArr
         })
     }
 
     toggleEdit = () => {
-        const editMode =  !this.state.editingMode;
+        const people = [...this.state.people];
+        people.map(elem => {
+            elem.editingMode = !elem.editingMode;
+            return elem;
+        })
         this.setState({
-            editingMode: editMode
+            people: people
         });
     }
 
-    render () {
+    render() {
         return (
             <div className="list">
-                <button onClick={this.toggleEdit}>{ this.state.editingMode ? 'Save' : 'Edit'}</button>
-                <Card 
-                    editMode={this.state.editingMode}
-                    changed={this.changeName}
-                    name={this.state.name}/>
+                <button onClick={this.toggleEdit}>{this.state.editingMode ? 'Save' : 'Edit'}</button>
+                {
+                    this.state.people.map((elem, index) => {
+                        return <Card
+                            key={index}
+                            editMode={elem.editingMode}
+                            changed={this.changeName.bind(this, index)}
+                            name={elem.name} />
+                    })
+                }
             </div>
         )
     }
