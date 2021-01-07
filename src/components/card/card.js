@@ -9,9 +9,9 @@ const Card = (props) => {
     return <div className="card">
         {
             props.editMode ?
-                <input onChange={changeName} value={props.name} /> : null
+                <input onChange={changeName} value={props.title} /> : null
         }
-        <p>{props.name}</p>
+        <p>{props.title}</p>
     </div>
 }
 

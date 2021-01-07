@@ -1,12 +1,12 @@
 import './App.scss';
-import List from './List/List';
-import Header from './Header/Header';
+import Header from './components/shared/Header/Header';
+import Home from './components/Home/Home';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <List />
+      <Home />
     </div>
   );
 }
