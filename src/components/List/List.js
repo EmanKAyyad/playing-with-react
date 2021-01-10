@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from '../card/card';
-import resService from '../../services/_rest';
+import restService from '../../services/_rest';
 
 class List extends Component {
   state = {
@@ -8,19 +8,17 @@ class List extends Component {
   }
 
   componentDidMount() {
-    fetch(resService.getPosts())
+    restService.getPosts()
       .then((response) => {
-        if (response.ok) {
-          response.json()
-            .then((data) => {
-              data = data.map(item => {
-                item.editingMode = false
-                return item;
-              })
-              this.setState({
-                posts: data
-              })
-            })
+        if (response && response.status === 200) {
+          const data = response.data.map(item => {
+            item.editingMode = false
+            return item;
+          })
+
+          this.setState({
+            posts: data
+          })
         }
       });
   }
@@ -47,7 +45,7 @@ class List extends Component {
 
   render() {
     return (
-      <div className="list">
+      <React.Fragment>
         <button onClick={this.toggleEdit}>{(this.state.posts.length > 0 && this.state.posts[0].editingMode) ? 'Save' : 'Edit'}</button>
         {
           this.state.posts.map((elem, index) => {
@@ -58,7 +56,7 @@ class List extends Component {
               title={elem.title} />
           })
         }
-      </div>
+      </React.Fragment>
     )
   }
 }

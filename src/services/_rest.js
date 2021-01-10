@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export default class restService {
-    static getPosts = () => `https://jsonplaceholder.typicode.com/posts`;
+    static getPosts = () => axios.get(`https://jsonplaceholder.typicode.com/posts`);
 }
